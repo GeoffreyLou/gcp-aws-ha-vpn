@@ -14,3 +14,13 @@ terraform {
 
   }
 }
+
+resource "google_project_service" "main" {
+  for_each = toset([
+    "compute.googleapis.com",
+    "iam.googleapis.com",
+    "cloudresourcemanager.googleapis.com"
+  ])
+  project = var.gcp-project
+  service = each.key
+}
